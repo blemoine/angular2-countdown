@@ -1,9 +1,20 @@
 const path = require("path");
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const WriteFilePlugin = require('write-file-webpack-plugin');
+const webpack = require('webpack');
 
 const DIST = './dist';
 const SRC = './src';
+
+function isExternal(mod) {
+  var userRequest = mod.userRequest;
+
+  if (typeof userRequest !== 'string') {
+    return false;
+  }
+
+  return userRequest.indexOf('node_modules') >= 0;
+}
 
 module.exports = {
   entry: [
@@ -52,6 +63,13 @@ module.exports = {
     new CopyWebpackPlugin([
       {from: SRC + '/index.html', to: 'index.html'}
     ]),
-    new WriteFilePlugin()
+    new WriteFilePlugin(),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendors',
+      filename:'vendors.js',
+      minChunks: function(module) {
+        return isExternal(module);
+      }
+    })
   ]
 };
