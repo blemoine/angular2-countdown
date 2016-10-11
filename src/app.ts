@@ -1,6 +1,8 @@
-const fn = (a: string) => console.log("msg", a);
+import './polyfill.ts'
+import './vendor.ts'
 
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { AppModule } from './app.module';
 
-fn("prout");
-
-
+const platform = platformBrowserDynamic();
+platform.bootstrapModule(AppModule);
