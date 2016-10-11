@@ -1,6 +1,7 @@
 const path = require("path");
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const WriteFilePlugin = require('write-file-webpack-plugin');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const webpack = require('webpack');
 
 const DIST = './dist';
@@ -34,7 +35,7 @@ module.exports = {
         loader: 'awesome-typescript-loader'
       },
 
-      {test: /\.css$/, loader: 'style-loader!css-loader'},
+
       {test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: "file"},
       {test: /\.(woff|woff2)/, loader: "url?prefix=font/&limit=5000"},
       {test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/octet-stream"},
@@ -49,8 +50,12 @@ module.exports = {
       },
 
       {
+        test: /\.css$/,
+        loader: ExtractTextPlugin.extract('style-loader', 'css-loader')
+      },
+      {
         test: /\.less$/,
-        loader: "style!css!less"
+        loader: ExtractTextPlugin.extract('style-loader', "css-loader!less-loader")
       }
     ]
   },
@@ -66,10 +71,11 @@ module.exports = {
     new WriteFilePlugin(),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendors',
-      filename:'vendors.js',
+      filename: 'vendors.js',
       minChunks: function(module) {
         return isExternal(module);
       }
-    })
+    }),
+    new ExtractTextPlugin("[name].css")
   ]
 };
