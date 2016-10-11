@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "scripts": {
     "clean": "rm -rf node_modules && rm -rf dist",
-    "start": "webpack-dev-server"
+    "start": "webpack-dev-server",
+    "deploy": "npm run clean && webpack && git subtree push --prefix dist origin gh-pages"
   },
   "dependencies": {
     "@angular/common": "^2.0.2",
