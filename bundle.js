@@ -131,24 +131,31 @@ webpackJsonp([0],{
 	};
 	var core_1 = __webpack_require__(276);
 	var moment = __webpack_require__(299);
-	__webpack_require__(733);
-	var countdown_service_1 = __webpack_require__(406);
+	var countdown_service_1 = __webpack_require__(408);
+	var $ = __webpack_require__(407);
+	window.$ = window.jQuery = $;
+	__webpack_require__(734);
+	__webpack_require__(736);
+	var endTime = moment('2016-10-26T17:00:00+02:00');
+	var startTime = moment('2016-10-01T09:00:00+02:00');
 	var CountdownComponent = (function () {
 	    function CountdownComponent(countdownService) {
 	        var _this = this;
-	        var endTime = moment('2016-10-26T17:00:00+02:00');
-	        var startTime = moment('2016-10-01T09:00:00+02:00');
 	        countdownService.getSecondsBetween(endTime).subscribe(function (msUntilEnds) {
 	            _this.clock = Math.floor(msUntilEnds / 1000);
 	            _this.percent = Math.floor(_this.clock / endTime.diff(startTime, 'seconds') * 100);
-	            var duration = moment.duration(msUntilEnds);
-	            _this.duration = duration.format('d [Days] h [Hours] m [Minutes] s [Seconds]');
 	        });
 	    }
+	    CountdownComponent.prototype.ngAfterViewInit = function () {
+	        $('.my-clock').FlipClock(endTime.diff(moment()) / 1000, {
+	            clockFace: 'DailyCounter',
+	            countdown: true
+	        });
+	    };
 	    CountdownComponent = __decorate([
 	        core_1.Component({
 	            selector: 'moloch-countdown',
-	            template: "\n  <div class=\"progress\">\n    <div class=\"progress-bar\" [style.width.%]=\"percent\">\n      <span>{{clock}} seconds</span>\n    </div>    \n  </div>\n  <div>\n    {{duration}}\n   \n  </div>\n  ",
+	            template: "\n  <div class=\"progress\">\n    <div class=\"progress-bar\" [style.width.%]=\"percent\">\n      <span>{{clock}} seconds</span>\n    </div>    \n  </div>\n  <div>   \n    <div class=\"my-clock\"></div>\n  </div>\n  ",
 	            providers: [countdown_service_1.CountdownService]
 	        }), 
 	        __metadata('design:paramtypes', [(typeof (_a = typeof countdown_service_1.CountdownService !== 'undefined' && countdown_service_1.CountdownService) === 'function' && _a) || Object])
@@ -390,7 +397,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 406:
+/***/ 408:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -405,7 +412,7 @@ webpackJsonp([0],{
 	};
 	var core_1 = __webpack_require__(276);
 	var moment = __webpack_require__(299);
-	var rxjs_1 = __webpack_require__(407);
+	var rxjs_1 = __webpack_require__(409);
 	var CountdownService = (function () {
 	    function CountdownService() {
 	    }
