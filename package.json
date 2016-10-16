@@ -4,7 +4,7 @@
   "scripts": {
     "clean": "rm -rf node_modules && rm -rf dist",
     "start": "webpack-dev-server",
-    "deploy": "rm -rf dist && webpack && git subtree push --prefix dist origin gh-pages"
+    "deploy": "rm -rf dist && NODE_ENV=prod webpack && git subtree push --prefix dist origin gh-pages"
   },
   "dependencies": {
     "@angular/common": "2.0.2",
@@ -35,6 +35,7 @@
     "url-loader": "0.5.7",
     "webpack": "1.13.2",
     "webpack-dev-server": "1.16.2",
+    "webpack-merge": "^0.14.1",
     "write-file-webpack-plugin": "3.3.0"
   }
 }
