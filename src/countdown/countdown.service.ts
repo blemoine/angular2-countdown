@@ -7,10 +7,6 @@ import {PartialObserver} from "rxjs/Observer";
 export class CountdownService {
 
   getSecondsBetween(end: moment.Moment): Observable<number> {
-    return Observable.create((observer: PartialObserver<number>) => {
-      setInterval(() => {
-        observer.next(end.diff(moment()))
-      }, 500);
-    })
+    return Observable.interval(500).map(i => end.diff(moment()))
   }
 }

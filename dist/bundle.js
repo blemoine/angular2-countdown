@@ -411,11 +411,7 @@ webpackJsonp([0],{
 	    function CountdownService() {
 	    }
 	    CountdownService.prototype.getSecondsBetween = function (end) {
-	        return rxjs_1.Observable.create(function (observer) {
-	            setInterval(function () {
-	                observer.next(end.diff(moment()));
-	            }, 500);
-	        });
+	        return rxjs_1.Observable.interval(500).map(function (i) { return end.diff(moment()); });
 	    };
 	    CountdownService = __decorate([
 	        core_1.Injectable(), 
