@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import * as moment from 'moment';
+import {CountdownService} from "./countdown.service";
 
 @Component({
   selector: 'moloch-countdown',
@@ -15,7 +16,8 @@ import * as moment from 'moment';
     <span>{{minutes}} Minutes</span>
     <span>{{seconds}} Seconds</span>
   </div>
-  `
+  `,
+  providers: [CountdownService]
 })
 export class CountdownComponent {
   public clock: number;
@@ -25,20 +27,19 @@ export class CountdownComponent {
   public minutes: number;
   public seconds: number;
 
-  constructor() {
+  constructor(countdownService:CountdownService) {
     const endTime = moment('2016-10-26T17:00:00+02:00');
     const startTime = moment('2016-10-01T09:00:00+02:00');
 
-    setInterval(() => {
-      const now = moment();
+    countdownService.getSecondsBetween(endTime).subscribe((msUntilEnds:number) => {
+      this.clock = Math.floor(msUntilEnds / 1000);
 
-      this.clock = endTime.diff(now, 'seconds');
       this.percent = Math.floor(this.clock / endTime.diff(startTime, 'seconds') * 100);
 
-      this.days = Math.floor(endTime.diff(now, 'days'));
-      this.hours = Math.floor(endTime.diff(now, 'hours') - this.days * 24);
-      this.minutes = Math.floor(endTime.diff(now, 'minutes') - this.days * 24 * 60 - this.hours * 60);
-      this.seconds = Math.floor(endTime.diff(now, 'seconds') - this.days * 24 * 3600 - this.hours * 3600 - this.minutes * 60);
-    }, 500);
+      this.days = Math.floor(this.clock / (24 * 3600));
+      this.hours = Math.floor( (this.clock - this.days * 24 * 3600)/3600 );
+      this.minutes = Math.floor( (this.clock - this.days * 24 * 3600 - this.hours * 3600) / 60 );
+      this.seconds = Math.floor((this.clock - this.days * 24 * 3600 - this.hours * 3600 - this.minutes * 60));
+    })
   }
 }
