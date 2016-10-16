@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import * as moment from 'moment';
+import 'moment-duration-format';
 import {CountdownService} from "./countdown.service";
 
 @Component({
@@ -11,10 +12,8 @@ import {CountdownService} from "./countdown.service";
     </div>    
   </div>
   <div>
-    <span>{{days}} Days</span>
-    <span>{{hours}} Hours</span>
-    <span>{{minutes}} Minutes</span>
-    <span>{{seconds}} Seconds</span>
+    {{duration}}
+   
   </div>
   `,
   providers: [CountdownService]
@@ -22,10 +21,7 @@ import {CountdownService} from "./countdown.service";
 export class CountdownComponent {
   public clock: number;
   public percent: number;
-  public days: number;
-  public hours: number;
-  public minutes: number;
-  public seconds: number;
+  public duration: string;
 
   constructor(countdownService:CountdownService) {
     const endTime = moment('2016-10-26T17:00:00+02:00');
@@ -36,10 +32,11 @@ export class CountdownComponent {
 
       this.percent = Math.floor(this.clock / endTime.diff(startTime, 'seconds') * 100);
 
-      this.days = Math.floor(this.clock / (24 * 3600));
-      this.hours = Math.floor( (this.clock - this.days * 24 * 3600)/3600 );
-      this.minutes = Math.floor( (this.clock - this.days * 24 * 3600 - this.hours * 3600) / 60 );
-      this.seconds = Math.floor((this.clock - this.days * 24 * 3600 - this.hours * 3600 - this.minutes * 60));
+
+
+      const duration = moment.duration(msUntilEnds) as any
+
+      this.duration = duration.format('d [Days] h [Hours] m [Minutes] s [Seconds]');
     })
   }
 }
