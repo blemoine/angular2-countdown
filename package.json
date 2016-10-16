@@ -4,7 +4,7 @@
   "scripts": {
     "clean": "rm -rf node_modules && rm -rf dist",
     "start": "webpack-dev-server",
-    "deploy": "rm -rf dist && NODE_ENV=prod webpack && git subtree push --prefix dist origin gh-pages"
+    "deploy": "rm -rf dist && NODE_ENV=prod webpack && git commit -am 'prod' && git subtree push --prefix dist origin gh-pages"
   },
   "dependencies": {
     "@angular/common": "2.1.0",
