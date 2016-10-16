@@ -1,7 +1,14 @@
 import {Component} from '@angular/core';
 import * as moment from 'moment';
-import 'moment-duration-format';
 import {CountdownService} from "./countdown.service";
+
+import * as $ from 'jquery';
+(window as any).$ = (window as any).jQuery = $;
+import 'flipclock/compiled/flipclock.css';
+import 'flipclock/compiled/flipclock.js';
+
+const endTime = moment('2016-10-26T17:00:00+02:00');
+const startTime = moment('2016-10-01T09:00:00+02:00');
 
 @Component({
   selector: 'moloch-countdown',
@@ -11,9 +18,8 @@ import {CountdownService} from "./countdown.service";
       <span>{{clock}} seconds</span>
     </div>    
   </div>
-  <div>
-    {{duration}}
-   
+  <div>   
+    <div class="my-clock"></div>
   </div>
   `,
   providers: [CountdownService]
@@ -24,19 +30,19 @@ export class CountdownComponent {
   public duration: string;
 
   constructor(countdownService:CountdownService) {
-    const endTime = moment('2016-10-26T17:00:00+02:00');
-    const startTime = moment('2016-10-01T09:00:00+02:00');
+
 
     countdownService.getSecondsBetween(endTime).subscribe((msUntilEnds:number) => {
       this.clock = Math.floor(msUntilEnds / 1000);
 
       this.percent = Math.floor(this.clock / endTime.diff(startTime, 'seconds') * 100);
-
-
-
-      const duration = moment.duration(msUntilEnds) as any
-
-      this.duration = duration.format('d [Days] h [Hours] m [Minutes] s [Seconds]');
     })
+  }
+
+  ngAfterViewInit() {
+    ($('.my-clock') as any).FlipClock(endTime.diff(moment()) / 1000, {
+      clockFace: 'DailyCounter',
+      countdown: true
+    });
   }
 }
