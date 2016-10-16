@@ -131,6 +131,7 @@ webpackJsonp([0],{
 	};
 	var core_1 = __webpack_require__(276);
 	var moment = __webpack_require__(299);
+	__webpack_require__(733);
 	var countdown_service_1 = __webpack_require__(406);
 	var CountdownComponent = (function () {
 	    function CountdownComponent(countdownService) {
@@ -140,16 +141,14 @@ webpackJsonp([0],{
 	        countdownService.getSecondsBetween(endTime).subscribe(function (msUntilEnds) {
 	            _this.clock = Math.floor(msUntilEnds / 1000);
 	            _this.percent = Math.floor(_this.clock / endTime.diff(startTime, 'seconds') * 100);
-	            _this.days = Math.floor(_this.clock / (24 * 3600));
-	            _this.hours = Math.floor((_this.clock - _this.days * 24 * 3600) / 3600);
-	            _this.minutes = Math.floor((_this.clock - _this.days * 24 * 3600 - _this.hours * 3600) / 60);
-	            _this.seconds = Math.floor((_this.clock - _this.days * 24 * 3600 - _this.hours * 3600 - _this.minutes * 60));
+	            var duration = moment.duration(msUntilEnds);
+	            _this.duration = duration.format('d [Days] h [Hours] m [Minutes] s [Seconds]');
 	        });
 	    }
 	    CountdownComponent = __decorate([
 	        core_1.Component({
 	            selector: 'moloch-countdown',
-	            template: "\n  <div class=\"progress\">\n    <div class=\"progress-bar\" [style.width.%]=\"percent\">\n      <span>{{clock}} seconds</span>\n    </div>    \n  </div>\n  <div>\n    <span>{{days}} Days</span>\n    <span>{{hours}} Hours</span>\n    <span>{{minutes}} Minutes</span>\n    <span>{{seconds}} Seconds</span>\n  </div>\n  ",
+	            template: "\n  <div class=\"progress\">\n    <div class=\"progress-bar\" [style.width.%]=\"percent\">\n      <span>{{clock}} seconds</span>\n    </div>    \n  </div>\n  <div>\n    {{duration}}\n   \n  </div>\n  ",
 	            providers: [countdown_service_1.CountdownService]
 	        }), 
 	        __metadata('design:paramtypes', [(typeof (_a = typeof countdown_service_1.CountdownService !== 'undefined' && countdown_service_1.CountdownService) === 'function' && _a) || Object])
