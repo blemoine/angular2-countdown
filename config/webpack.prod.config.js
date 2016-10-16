@@ -10,15 +10,13 @@ module.exports = webpackMerge(commonConfig, {
   //TODO utiliser un hash pour le cache
   plugins: [
     new webpack.optimize.UglifyJsPlugin({
-      include:'bundle.js',
+      include: 'bundle.js',
       mangle: false,
       sourceMap: false,
       comments: false
     }),
     new webpack.DefinePlugin({
-      'process.env': {
-        'ENV': JSON.stringify(ENV)
-      }
+      'ENV': JSON.stringify(ENV)
     })
   ]
 });
