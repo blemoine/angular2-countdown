@@ -131,11 +131,11 @@ webpackJsonp([0],{
 	};
 	var core_1 = __webpack_require__(276);
 	var moment = __webpack_require__(299);
-	var countdown_service_1 = __webpack_require__(408);
-	var $ = __webpack_require__(407);
+	var countdown_service_1 = __webpack_require__(406);
+	var $ = __webpack_require__(732);
 	window.$ = window.jQuery = $;
-	__webpack_require__(734);
-	__webpack_require__(736);
+	__webpack_require__(733);
+	__webpack_require__(735);
 	var endTime = moment('2016-10-26T17:00:00+02:00');
 	var startTime = moment('2016-10-01T09:00:00+02:00');
 	var CountdownComponent = (function () {
@@ -397,7 +397,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 408:
+/***/ 406:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -412,7 +412,7 @@ webpackJsonp([0],{
 	};
 	var core_1 = __webpack_require__(276);
 	var moment = __webpack_require__(299);
-	var rxjs_1 = __webpack_require__(409);
+	var rxjs_1 = __webpack_require__(407);
 	var CountdownService = (function () {
 	    function CountdownService() {
 	    }
