@@ -33,9 +33,9 @@ export class CountdownComponent {
 
 
     countdownService.getSecondsBetween(endTime).subscribe((msUntilEnds:number) => {
-      this.clock = msUntilEnds / 1000;
+      this.clock = Math.floor(msUntilEnds / 1000);
 
-      this.percent = Math.floor(Math.floor(this.clock) / endTime.diff(startTime, 'seconds') * 100);
+      this.percent = this.clock / endTime.diff(startTime, 'seconds') * 100;
     })
   }
 
