@@ -20,6 +20,7 @@ const startTime = moment('2016-10-17T09:00:00+02:00');
   </div>
   <div>   
     <div class="my-clock"></div>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/9jK-NcRmVcw?rel=0&autoplay=1&start=117" frameborder="0" allowfullscreen></iframe>
   </div>
   `,
   providers: [CountdownService]
