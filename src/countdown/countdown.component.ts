@@ -8,7 +8,7 @@ import 'flipclock/compiled/flipclock.css';
 import 'flipclock/compiled/flipclock.js';
 
 const endTime = moment('2016-10-26T17:00:00+02:00');
-const startTime = moment('2016-10-01T09:00:00+02:00');
+const startTime = moment('2016-10-17T09:00:00+02:00');
 
 @Component({
   selector: 'moloch-countdown',
