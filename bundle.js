@@ -64,8 +64,9 @@ webpackJsonp([0],{
 	var platform_browser_1 = __webpack_require__(294);
 	var app_component_1 = __webpack_require__(297);
 	var countdown_component_1 = __webpack_require__(298);
-	var youtube_component_1 = __webpack_require__(736);
-	var progressbar_component_1 = __webpack_require__(737);
+	var youtube_component_1 = __webpack_require__(732);
+	var progressbar_component_1 = __webpack_require__(733);
+	var flip_clock_component_1 = __webpack_require__(734);
 	var AppModule = (function () {
 	    function AppModule() {
 	    }
@@ -76,7 +77,8 @@ webpackJsonp([0],{
 	                app_component_1.AppComponent,
 	                countdown_component_1.CountdownComponent,
 	                youtube_component_1.YoutubeComponent,
-	                progressbar_component_1.ProgressbarComponent
+	                progressbar_component_1.ProgressbarComponent,
+	                flip_clock_component_1.FlipClockComponent
 	            ],
 	            bootstrap: [app_component_1.AppComponent]
 	        }), 
@@ -136,31 +138,26 @@ webpackJsonp([0],{
 	var core_1 = __webpack_require__(276);
 	var moment = __webpack_require__(299);
 	var countdown_service_1 = __webpack_require__(406);
-	var $ = __webpack_require__(732);
-	window.$ = window.jQuery = $;
-	__webpack_require__(733);
-	__webpack_require__(735);
-	var endTime = moment('2016-10-26T17:00:00+02:00');
-	var startTime = moment('2016-10-19T09:00:00+02:00');
 	var CountdownComponent = (function () {
 	    function CountdownComponent(countdownService) {
 	        var _this = this;
+	        var endTime = moment('2016-10-26T17:00:00+02:00');
+	        var startTime = moment('2016-10-19T09:00:00+02:00');
 	        countdownService.getSecondsBetween(endTime).subscribe(function (msUntilEnds) {
 	            _this.clock = Math.floor(msUntilEnds / 1000);
 	            _this.percent = _this.clock / endTime.diff(startTime, 'seconds') * 100;
+	            _this.untilInSec = endTime.diff(moment()) / 1000;
 	        });
 	    }
-	    CountdownComponent.prototype.ngAfterViewInit = function () {
-	        $('.my-clock').FlipClock(endTime.diff(moment()) / 1000, {
-	            clockFace: 'DailyCounter',
-	            countdown: true
-	        });
-	    };
 	    CountdownComponent = __decorate([
 	        core_1.Component({
 	            selector: 'moloch-countdown',
-	            template: "\n  <moloch-progressbar\n    [text]=\"clock + ' seconds'\"\n    [percent]=\"percent\"\n  ></moloch-progressbar>\n  \n  <div>   \n    <div class=\"my-clock\"></div>\n    \n  </div>\n  ",
-	            providers: [countdown_service_1.CountdownService]
+	            template: "\n  <moloch-progressbar\n    [text]=\"clock + ' seconds'\"\n    [percent]=\"percent\"\n  ></moloch-progressbar>\n  \n  <div class=\"flip-clock-top-wrapper\">\n    <moloch-flip-clock [untilInSec]=\"untilInSec\"></moloch-flip-clock>  \n  </div>\n  ",
+	            providers: [countdown_service_1.CountdownService],
+	            styles: [
+	                ".flip-clock-top-wrapper { \n           background-color:rgba(255,255,255,0.5);\n           padding:10px;\n           text-align:center; \n       }",
+	                "moloch-flip-clock {\n         margin-left:auto;\n         margin-right:auto;\n         width:auto;\n         display:inline-block;\n      }"
+	            ]
 	        }), 
 	        __metadata('design:paramtypes', [(typeof (_a = typeof countdown_service_1.CountdownService !== 'undefined' && countdown_service_1.CountdownService) === 'function' && _a) || Object])
 	    ], CountdownComponent);
@@ -434,7 +431,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 736:
+/***/ 732:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -486,7 +483,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 737:
+/***/ 733:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -521,6 +518,57 @@ webpackJsonp([0],{
 	    return ProgressbarComponent;
 	}());
 	exports.ProgressbarComponent = ProgressbarComponent;
+
+
+/***/ },
+
+/***/ 734:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var $ = __webpack_require__(735);
+	__webpack_require__(742);
+	__webpack_require__(743);
+	var core_1 = __webpack_require__(276);
+	var FlipClockComponent = (function () {
+	    function FlipClockComponent(el) {
+	        this.el = el;
+	    }
+	    FlipClockComponent.prototype.ngAfterViewInit = function () {
+	        this.clock = $(this.el.nativeElement).FlipClock(this.untilInSec, {
+	            clockFace: 'DailyCounter',
+	            countdown: true
+	        });
+	    };
+	    FlipClockComponent.prototype.ngOnChanges = function (changes) {
+	        if (this.clock) {
+	            this.clock.setTime(this.untilInSec);
+	        }
+	    };
+	    __decorate([
+	        core_1.Input(), 
+	        __metadata('design:type', Number)
+	    ], FlipClockComponent.prototype, "untilInSec", void 0);
+	    FlipClockComponent = __decorate([
+	        core_1.Component({
+	            selector: 'moloch-flip-clock',
+	            template: "\n  <div class=\"my-clock\"></div>\n  "
+	        }), 
+	        __metadata('design:paramtypes', [(typeof (_a = typeof core_1.ElementRef !== 'undefined' && core_1.ElementRef) === 'function' && _a) || Object])
+	    ], FlipClockComponent);
+	    return FlipClockComponent;
+	    var _a;
+	}());
+	exports.FlipClockComponent = FlipClockComponent;
 
 
 /***/ }
