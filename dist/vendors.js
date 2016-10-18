@@ -72760,7 +72760,10 @@
 	//# sourceMappingURL=AnimationFrameScheduler.js.map
 
 /***/ },
-/* 732 */
+/* 732 */,
+/* 733 */,
+/* 734 */,
+/* 735 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -82986,15 +82989,23 @@
 
 
 /***/ },
-/* 733 */
+/* 736 */,
+/* 737 */,
+/* 738 */,
+/* 739 */,
+/* 740 */,
+/* 741 */,
+/* 742 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
-/* 734 */,
-/* 735 */
-/***/ function(module, exports) {
+/* 743 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/*** IMPORTS FROM imports-loader ***/
+	var jQuery = __webpack_require__(735);
 
 	/*
 		Base.js, version 1.1a
@@ -85750,6 +85761,7 @@
 		FlipClock.Lang['swedish'] = FlipClock.Lang.Swedish;
 
 	}(jQuery));
+
 
 
 /***/ }

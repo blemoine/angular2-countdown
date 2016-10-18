@@ -5,6 +5,7 @@ import {AppComponent} from './app.component';
 import {CountdownComponent} from "./countdown/countdown.component";
 import {YoutubeComponent} from "./youtube/youtube.component";
 import {ProgressbarComponent} from "./countdown/progressbar.component";
+import {FlipClockComponent} from "./countdown/flip-clock.component";
 
 @NgModule({
   imports: [BrowserModule],
@@ -12,7 +13,8 @@ import {ProgressbarComponent} from "./countdown/progressbar.component";
     AppComponent,
     CountdownComponent,
     YoutubeComponent,
-    ProgressbarComponent
+    ProgressbarComponent,
+    FlipClockComponent
   ],
   bootstrap: [AppComponent]
 })

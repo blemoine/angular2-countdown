@@ -4,7 +4,7 @@
   "scripts": {
     "clean": "rm -rf node_modules && rm -rf dist",
     "start": "webpack-dev-server",
-    "dist":"rm -rf dist && NODE_ENV=prod webpack ",
+    "dist": "rm -rf dist && NODE_ENV=prod webpack ",
     "deploy": "git subtree push --prefix dist origin gh-pages"
   },
   "dependencies": {
@@ -33,6 +33,7 @@
     "css-loader": "0.25.0",
     "extract-text-webpack-plugin": "1.0.1",
     "image-webpack-loader": "2.0.0",
+    "imports-loader": "^0.6.5",
     "less": "2.7.1",
     "less-loader": "2.2.3",
     "style-loader": "0.13.1",
