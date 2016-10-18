@@ -2,7 +2,7 @@ import * as $ from 'jquery';
 
 import 'flipclock/compiled/flipclock.css';
 import 'imports?jQuery=jquery!flipclock/compiled/flipclock.js';
-
+import './flipclock'
 import {Component, AfterViewInit, Input, OnChanges, SimpleChanges, ElementRef} from "@angular/core";
 
 @Component({
