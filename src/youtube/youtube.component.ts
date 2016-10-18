@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
 import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
 
 @Component({
@@ -9,7 +9,7 @@ import {DomSanitizer, SafeResourceUrl} from "@angular/platform-browser";
   </div>
   `
 })
-export class YoutubeComponent {
+export class YoutubeComponent implements OnChanges {
 
   @Input() idVideo: string;
   @Input() autoplay: boolean;
@@ -20,7 +20,7 @@ export class YoutubeComponent {
   constructor(private sanitizer: DomSanitizer) {
   }
 
-  ngOnChanges() {
+  ngOnChanges(changes: SimpleChanges): void {
     const autoplay = this.autoplay ? "rel=0&autoplay=1" : '';
     const start = (!!this.startInSec) ? `start=${this.startInSec}` : '';
 
@@ -29,4 +29,3 @@ export class YoutubeComponent {
     this.url = this.sanitizer.bypassSecurityTrustResourceUrl(`https://www.youtube.com/embed/${this.idVideo}?${params}`);
   }
 }
-
