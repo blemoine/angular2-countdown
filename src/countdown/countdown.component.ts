@@ -8,16 +8,16 @@ import 'flipclock/compiled/flipclock.css';
 import 'flipclock/compiled/flipclock.js';
 
 const endTime = moment('2016-10-26T17:00:00+02:00');
-const startTime = moment('2016-10-17T09:00:00+02:00');
+const startTime = moment('2016-10-19T09:00:00+02:00');
 
 @Component({
   selector: 'moloch-countdown',
   template: `
-  <div class="progress">
-    <div class="progress-bar" [style.width.%]="percent">
-      <span>{{clock}} seconds</span>
-    </div>    
-  </div>
+  <moloch-progressbar
+    [text]="clock + ' seconds'"
+    [percent]="percent"
+  ></moloch-progressbar>
+  
   <div>   
     <div class="my-clock"></div>
     

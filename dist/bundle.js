@@ -65,6 +65,7 @@ webpackJsonp([0],{
 	var app_component_1 = __webpack_require__(297);
 	var countdown_component_1 = __webpack_require__(298);
 	var youtube_component_1 = __webpack_require__(736);
+	var progressbar_component_1 = __webpack_require__(737);
 	var AppModule = (function () {
 	    function AppModule() {
 	    }
@@ -74,7 +75,8 @@ webpackJsonp([0],{
 	            declarations: [
 	                app_component_1.AppComponent,
 	                countdown_component_1.CountdownComponent,
-	                youtube_component_1.YoutubeComponent
+	                youtube_component_1.YoutubeComponent,
+	                progressbar_component_1.ProgressbarComponent
 	            ],
 	            bootstrap: [app_component_1.AppComponent]
 	        }), 
@@ -139,7 +141,7 @@ webpackJsonp([0],{
 	__webpack_require__(733);
 	__webpack_require__(735);
 	var endTime = moment('2016-10-26T17:00:00+02:00');
-	var startTime = moment('2016-10-17T09:00:00+02:00');
+	var startTime = moment('2016-10-19T09:00:00+02:00');
 	var CountdownComponent = (function () {
 	    function CountdownComponent(countdownService) {
 	        var _this = this;
@@ -157,7 +159,7 @@ webpackJsonp([0],{
 	    CountdownComponent = __decorate([
 	        core_1.Component({
 	            selector: 'moloch-countdown',
-	            template: "\n  <div class=\"progress\">\n    <div class=\"progress-bar\" [style.width.%]=\"percent\">\n      <span>{{clock}} seconds</span>\n    </div>    \n  </div>\n  <div>   \n    <div class=\"my-clock\"></div>\n    \n  </div>\n  ",
+	            template: "\n  <moloch-progressbar\n    [text]=\"clock + ' seconds'\"\n    [percent]=\"percent\"\n  ></moloch-progressbar>\n  \n  <div>   \n    <div class=\"my-clock\"></div>\n    \n  </div>\n  ",
 	            providers: [countdown_service_1.CountdownService]
 	        }), 
 	        __metadata('design:paramtypes', [(typeof (_a = typeof countdown_service_1.CountdownService !== 'undefined' && countdown_service_1.CountdownService) === 'function' && _a) || Object])
@@ -480,6 +482,45 @@ webpackJsonp([0],{
 	    var _a;
 	}());
 	exports.YoutubeComponent = YoutubeComponent;
+
+
+/***/ },
+
+/***/ 737:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(276);
+	var ProgressbarComponent = (function () {
+	    function ProgressbarComponent() {
+	    }
+	    __decorate([
+	        core_1.Input(), 
+	        __metadata('design:type', Number)
+	    ], ProgressbarComponent.prototype, "percent", void 0);
+	    __decorate([
+	        core_1.Input(), 
+	        __metadata('design:type', String)
+	    ], ProgressbarComponent.prototype, "text", void 0);
+	    ProgressbarComponent = __decorate([
+	        core_1.Component({
+	            selector: 'moloch-progressbar',
+	            template: "\n  <div class=\"progress\">\n    <div class=\"progress-bar\" [style.width.%]=\"percent\">\n      <span>{{text}}</span>\n    </div>    \n  </div>\n  "
+	        }), 
+	        __metadata('design:paramtypes', [])
+	    ], ProgressbarComponent);
+	    return ProgressbarComponent;
+	}());
+	exports.ProgressbarComponent = ProgressbarComponent;
 
 
 /***/ }
