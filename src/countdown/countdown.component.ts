@@ -11,7 +11,7 @@ import {CountdownService} from "./countdown.service";
   ></moloch-progressbar>
   
   <div class="flip-clock-top-wrapper">
-    <moloch-flip-clock [untilInSec]="untilInSec"></moloch-flip-clock>  
+    <moloch-flip-clock [endTime]="endTime"></moloch-flip-clock>  
   </div>
   `,
   providers: [CountdownService],
@@ -37,8 +37,6 @@ export class CountdownComponent implements OnInit {
   public percent: number;
   public duration: string;
 
-  public untilInSec: number;
-
   constructor(private countdownService: CountdownService) {
   }
 
@@ -47,9 +45,6 @@ export class CountdownComponent implements OnInit {
       this.clock = Math.floor(msUntilEnds / 1000);
 
       this.percent = this.clock / this.endTime.diff(this.startTime, 'seconds') * 100;
-
-      this.untilInSec = this.endTime.diff(moment()) / 1000
-    })
-
+    });
   }
 }

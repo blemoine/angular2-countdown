@@ -1,4 +1,5 @@
 import * as $ from 'jquery';
+import * as moment from 'moment';
 
 import 'flipclock/compiled/flipclock.css';
 import 'imports?jQuery=jquery!flipclock/compiled/flipclock.js';
@@ -13,7 +14,7 @@ import {Component, AfterViewInit, Input, OnChanges, SimpleChanges, ElementRef} f
 })
 export class FlipClockComponent implements AfterViewInit, OnChanges {
 
-  @Input() untilInSec: number;
+  @Input() endTime: moment.Moment;
 
   private clock: any;
 
@@ -22,7 +23,7 @@ export class FlipClockComponent implements AfterViewInit, OnChanges {
   }
 
   ngAfterViewInit(): void {
-    this.clock = $(this.el.nativeElement).FlipClock(this.untilInSec, {
+    this.clock = $(this.el.nativeElement).FlipClock(this.untilInSec(), {
       clockFace: 'DailyCounter',
       countdown: true
     });
@@ -30,8 +31,12 @@ export class FlipClockComponent implements AfterViewInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.clock) {
-      this.clock.setTime(this.untilInSec)
+      this.clock.setTime(this.untilInSec())
     }
   }
 
+
+  private untilInSec(): number {
+    return this.endTime.diff(moment()) / 1000;
+  }
 }
