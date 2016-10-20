@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import * as moment from 'moment';
 import {CountdownService} from "./countdown.service";
 
@@ -15,13 +15,13 @@ import {CountdownService} from "./countdown.service";
   </div>
   `,
   providers: [CountdownService],
-  styles:[
-      `.flip-clock-top-wrapper { 
+  styles: [
+    `.flip-clock-top-wrapper { 
            background-color:rgba(255,255,255,0.5);
            padding:10px;
            text-align:center; 
        }`,
-      `moloch-flip-clock {
+    `moloch-flip-clock {
          margin-left:auto;
          margin-right:auto;
          width:auto;
@@ -29,24 +29,27 @@ import {CountdownService} from "./countdown.service";
       }`
   ]
 })
-export class CountdownComponent {
+export class CountdownComponent implements OnInit {
+  @Input() startTime: moment.Moment;
+  @Input() endTime: moment.Moment;
+
   public clock: number;
   public percent: number;
   public duration: string;
 
-  public untilInSec:number;
+  public untilInSec: number;
 
-  constructor(countdownService:CountdownService) {
-    const endTime = moment('2016-10-26T17:00:00+02:00');
-    const startTime = moment('2016-10-19T09:00:00+02:00');
-
-    countdownService.getSecondsBetween(endTime).subscribe((msUntilEnds:number) => {
-      this.clock = Math.floor(msUntilEnds / 1000);
-
-      this.percent = this.clock / endTime.diff(startTime, 'seconds') * 100;
-
-      this.untilInSec = endTime.diff(moment()) / 1000
-    })
+  constructor(private countdownService: CountdownService) {
   }
 
+  ngOnInit(): void {
+    this.countdownService.getSecondsBetween(this.endTime).subscribe((msUntilEnds: number) => {
+      this.clock = Math.floor(msUntilEnds / 1000);
+
+      this.percent = this.clock / this.endTime.diff(this.startTime, 'seconds') * 100;
+
+      this.untilInSec = this.endTime.diff(moment()) / 1000
+    })
+
+  }
 }
