@@ -150,7 +150,6 @@ webpackJsonp([0],{
 	        this.countdownService.getSecondsBetween(this.endTime).subscribe(function (msUntilEnds) {
 	            _this.clock = Math.floor(msUntilEnds / 1000);
 	            _this.percent = _this.clock / _this.endTime.diff(_this.startTime, 'seconds') * 100;
-	            _this.untilInSec = _this.endTime.diff(moment()) / 1000;
 	        });
 	    };
 	    __decorate([
@@ -164,7 +163,7 @@ webpackJsonp([0],{
 	    CountdownComponent = __decorate([
 	        core_1.Component({
 	            selector: 'moloch-countdown',
-	            template: "\n  <moloch-progressbar\n    [text]=\"clock + ' seconds'\"\n    [percent]=\"percent\"\n  ></moloch-progressbar>\n  \n  <div class=\"flip-clock-top-wrapper\">\n    <moloch-flip-clock [untilInSec]=\"untilInSec\"></moloch-flip-clock>  \n  </div>\n  ",
+	            template: "\n  <moloch-progressbar\n    [text]=\"clock + ' seconds'\"\n    [percent]=\"percent\"\n  ></moloch-progressbar>\n  \n  <div class=\"flip-clock-top-wrapper\">\n    <moloch-flip-clock [endTime]=\"endTime\"></moloch-flip-clock>  \n  </div>\n  ",
 	            providers: [countdown_service_1.CountdownService],
 	            styles: [
 	                ".flip-clock-top-wrapper { \n           background-color:rgba(255,255,255,0.5);\n           padding:10px;\n           text-align:center; \n       }",
@@ -548,6 +547,7 @@ webpackJsonp([0],{
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var $ = __webpack_require__(735);
+	var moment = __webpack_require__(299);
 	__webpack_require__(736);
 	__webpack_require__(738);
 	__webpack_require__(739);
@@ -557,29 +557,32 @@ webpackJsonp([0],{
 	        this.el = el;
 	    }
 	    FlipClockComponent.prototype.ngAfterViewInit = function () {
-	        this.clock = $(this.el.nativeElement).FlipClock(this.untilInSec, {
+	        this.clock = $(this.el.nativeElement).FlipClock(this.untilInSec(), {
 	            clockFace: 'DailyCounter',
 	            countdown: true
 	        });
 	    };
 	    FlipClockComponent.prototype.ngOnChanges = function (changes) {
 	        if (this.clock) {
-	            this.clock.setTime(this.untilInSec);
+	            this.clock.setTime(this.untilInSec());
 	        }
+	    };
+	    FlipClockComponent.prototype.untilInSec = function () {
+	        return this.endTime.diff(moment()) / 1000;
 	    };
 	    __decorate([
 	        core_1.Input(), 
-	        __metadata('design:type', Number)
-	    ], FlipClockComponent.prototype, "untilInSec", void 0);
+	        __metadata('design:type', (typeof (_a = typeof moment !== 'undefined' && moment.Moment) === 'function' && _a) || Object)
+	    ], FlipClockComponent.prototype, "endTime", void 0);
 	    FlipClockComponent = __decorate([
 	        core_1.Component({
 	            selector: 'moloch-flip-clock',
 	            template: "\n  <div class=\"my-clock\"></div>\n  "
 	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof core_1.ElementRef !== 'undefined' && core_1.ElementRef) === 'function' && _a) || Object])
+	        __metadata('design:paramtypes', [(typeof (_b = typeof core_1.ElementRef !== 'undefined' && core_1.ElementRef) === 'function' && _b) || Object])
 	    ], FlipClockComponent);
 	    return FlipClockComponent;
-	    var _a;
+	    var _a, _b;
 	}());
 	exports.FlipClockComponent = FlipClockComponent;
 
