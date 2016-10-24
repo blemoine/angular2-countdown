@@ -16,5 +16,5 @@ import * as moment from 'moment';
 })
 export class AppComponent {
   public endTime = moment('2016-10-26T17:00:00+02:00');
-  public startTime = moment('2016-10-20T18:00:00+02:00');
+  public startTime = moment('2016-10-24T17:00:00+02:00');
 }
